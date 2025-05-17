@@ -5,7 +5,10 @@ import com.giuseppe.rest_users.service.api.IUserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Implementazione dell'interfaccia di servizio per la gestione degli utenti
@@ -16,8 +19,33 @@ public class UserServiceImpl implements IUserService {
     private final List<User> users = new ArrayList<>();
 
     @Override
-    public List<User> getAllUsers() {
-        return new ArrayList<>(this.users);
+    public List<User> getAllUsers(String orderBy, Integer limit) {
+        String[] split = orderBy.toLowerCase().split(":");
+        boolean descending = (split.length > 1 && split[1].equals("desc"));
+
+        Comparator<User> comparator;
+
+        switch (split[0]) {
+            case "name":
+                comparator = Comparator.comparing(User::name);
+                break;
+            case "surname":
+                comparator = Comparator.comparing(User::surname);
+                break;
+            case "email":
+            default:
+                comparator = Comparator.comparing(User::email);
+                break;
+        }
+
+        if (descending) comparator = comparator.reversed();
+
+        Stream<User> stream = users.stream().sorted(comparator);
+
+        if (limit != null)
+            stream = stream.limit(limit);
+
+        return stream.collect(Collectors.toList());
     }
 
     @Override

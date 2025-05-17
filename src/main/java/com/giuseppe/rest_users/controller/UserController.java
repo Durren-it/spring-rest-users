@@ -30,10 +30,11 @@ public class UserController {
      * @return una lista di utenti
      * */
     @GetMapping
-    public List<User> getAllUsers() {
-        // TODO orderBy email, name, surname <> asc/desc
-        // TODO limit results
-        return userService.getAllUsers();
+    public List<User> getAllUsers(
+            @RequestParam(required = false, defaultValue = "email") String orderBy,
+            @RequestParam(required = false) Integer limit
+    ) {
+        return userService.getAllUsers(orderBy, limit);
     }
 
     /**

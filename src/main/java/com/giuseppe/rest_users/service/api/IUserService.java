@@ -14,7 +14,7 @@ public interface IUserService {
      *
      * @return Una lista di utenti
      */
-    List<User> getAllUsers();
+    List<User> getAllUsers(String orderBy, Integer limit);
 
     /**
      * Restituisce un utente dato il suo indirizzo email.
