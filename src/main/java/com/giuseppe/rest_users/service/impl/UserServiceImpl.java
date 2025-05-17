@@ -30,7 +30,11 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User createUser(User user) {
-        // TODO check if email already exists -> return null
+        for (User u : users) {
+            if (u.email().equals(user.email())){
+                return null;
+            }
+        }
         this.users.add(user);
         return user;
     }
