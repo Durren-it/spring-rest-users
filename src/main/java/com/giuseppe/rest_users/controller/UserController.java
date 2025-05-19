@@ -27,6 +27,10 @@ public class UserController {
     /**
      * Restituisce una lista di utenti
      *
+     * @param orderBy parametro per ordinare i risultati; accetta "name", "surname" o "email",
+     *                opzionalmente seguiti da ":asc" o ":desc" (es "name:desc").
+     *                Il valore predefinito è "email".
+     * @param limit   numero massimo di utenti da restituire; se nullo, restituisce tutti gli utenti.
      * @return una lista di utenti
      * */
     @GetMapping
