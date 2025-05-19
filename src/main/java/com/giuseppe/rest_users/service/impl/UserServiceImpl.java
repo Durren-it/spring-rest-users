@@ -63,12 +63,14 @@ public class UserServiceImpl implements IUserService {
                 return null;
             }
         }
-        this.users.add(user);
+        this.users.add(new User(user.name(), user.surname(), user.email().toLowerCase()));
         return user;
     }
 
     @Override
     public User updateUser(String email, User updatedUser) {
+        updatedUser = new User(updatedUser.name(), updatedUser.surname(), updatedUser.email().toLowerCase());
+
         for (int i = 0; i < this.users.size(); i++) {
             if (this.users.get(i).email().equals(email)) {
                 this.users.set(i, updatedUser);
