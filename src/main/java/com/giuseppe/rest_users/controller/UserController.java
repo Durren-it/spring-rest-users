@@ -54,12 +54,12 @@ public class UserController {
      * Crea un nuovo utente
      *
      * @param user l'utente da creare
-     * @return (201) Se l'utente è creato, (404) se email utente già in uso
+     * @return (201) Se l'utente è creato, (409) se email utente già in uso
      * */
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User createdUser = userService.createUser(user);
-        if (createdUser == null) return ResponseEntity.notFound().build();
+        if (createdUser == null) return ResponseEntity.status(HttpStatus.CONFLICT).build();
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
