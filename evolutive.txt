@@ -7,3 +7,5 @@ i parametri "orderBy" e "limit".
 - orderBy -> accetta i valori email, name, surname e le opzioni asc/desc
   e ordina i risultati in baso ai parametri inserito
 - limit accetta un intero e permette di limitare il numero di utenti restituiti dall'API
+
+3) Aggiungere swaggers e actuators.
